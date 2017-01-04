@@ -7,9 +7,10 @@ class stravaSegment(object):
 
 	def __init__(self,id):
 		self.id=id
-		self.name=requests.get('https://www.strava.com/api/v3/segments/'+str(id)+'?access_token='+secrets.apiToken).json()['name']
-		self.effortCount=requests.get('https://www.strava.com/api/v3/segments/'+str(id)+'?access_token='+secrets.apiToken).json()['effort_count']
-		self.athleteCount=requests.get('https://www.strava.com/api/v3/segments/'+str(id)+'?access_token='+secrets.apiToken).json()['athlete_count']
+		base_url='https://www.strava.com/api/v3/segments/'
+		self.name=requests.get(base_url+str(id)+'?access_token='+secrets.apiToken).json()['name']
+		self.effortCount=requests.get(base_url+str(id)+'?access_token='+secrets.apiToken).json()['effort_count']
+		self.athleteCount=requests.get(base_url+str(id)+'?access_token='+secrets.apiToken).json()['athlete_count']
 
 
 	def getKOMs(self,start_year,start_month,start_day,end_year,end_month,end_day):
@@ -23,7 +24,7 @@ class stravaSegment(object):
 		efforts=[]
 		for i in range(100):
 			# build url call
-			url= 'https://www.strava.com/api/v3/segments/'+str(self.id)+'/all_efforts?access_token='+secrets.apiToken+'&start_date_local='+startDate+'&end_date_local='+endDate+'&per_page='+perPage+'&page='+str(i+1)
+			url= base_url+str(self.id)+'/all_efforts?access_token='+secrets.apiToken+'&start_date_local='+startDate+'&end_date_local='+endDate+'&per_page='+perPage+'&page='+str(i+1)
 			# get
 			a=requests.get(url)
 			# convert to json

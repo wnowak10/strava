@@ -1,5 +1,7 @@
-this code uses Strava API v3 to access segment efforts data. python is used with requests.get and also JSON decoding. data is exported as CSV and chart is created with ggplot2 in R.
+This project uses Strava API v3 to access segment efforts data. Python is used with requests library (get method) and also JSON decoding. Data is then exported as CSV and chart is created with ggplot2 in R.
 
-see https://medium.com/@williampnowak/strava-kom-analysis-e990a16db862#.217jw2xn2 for more details
+See https://medium.com/@williampnowak/strava-kom-analysis-e990a16db862#.217jw2xn2 for more details.
 
-areas of improvement : -- change per page and page number automatically, based upon # of efforts in request -- increase efficiency to lower demand on strava servers. after one day of work i was temporarily over my limit as defined by strava API
+
+Potential areas of improvement:
+-- change per page and page number automatically, based upon # of efforts in request -- increase efficiency to lower demand on strava servers. after one day of work i was temporarily over my limit as defined by strava API
