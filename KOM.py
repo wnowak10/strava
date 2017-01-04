@@ -51,7 +51,7 @@ class stravaSegment(object):
 		return best_times
 
 # output
-whirl = stravaSegment(673849)
+whirl = stravaSegment(673849) #had to look up this segment id on strava
 koms = whirl.getKOMs(2016,5,1,2016,6,1)
 # convert to np array for export
 b=np.asarray(koms)
