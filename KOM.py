@@ -2,8 +2,6 @@ import requests
 import secrets 
 import numpy as np
 
-open('kom.txt', 'wb')
-
 
 class stravaSegment(object):
 
@@ -14,12 +12,13 @@ class stravaSegment(object):
 		self.athleteCount=requests.get('https://www.strava.com/api/v3/segments/'+str(id)+'?access_token='+secrets.apiToken).json()['athlete_count']
 
 
-	def getKOMs(self):
+	def getKOMs(self,start_year,start_month,start_day,end_year,end_month,end_day):
 		# set the number of efforts printed 'per page'
 		perPage='100'
-		# set start and end dates for efforts investigated
-		startDate='2010-01-09T17:00:00Z'
-		endDate='2016-05-10T20:00:00Z'
+		# set start and end dates for efforts investigated. user must provide start
+		# and stop dates as function arguments
+		startDate=str(start_year)+'-'+str(start_month)+'-'+str(start_day)+'T17:00:00Z'
+		endDate=str(end_year)+'-'+str(end_month)+'-'+str(end_day)+'T17:00:00Z'
 		# go through all of the pages. 
 		efforts=[]
 		for i in range(100):
@@ -49,19 +48,14 @@ class stravaSegment(object):
 					times.append(oneRun)
 		return times
 
-# test
+# output
 whirl = stravaSegment(673849)
-
-koms = whirl.getKOMs()
-
+koms = whirl.getKOMs(2016,5,1,2016,6,1)
+# convert to np array for export
 b=np.asarray(koms)
 print b
-print b.shape
 
 np.savetxt('test.csv', b, delimiter=",",fmt='%s ')
 
-# y=np.asarray(koms)
-# np.savetxt('kom.txt', y)
-print koms
 
 
