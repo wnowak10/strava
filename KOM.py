@@ -2,12 +2,13 @@ import requests
 import secrets 
 import numpy as np
 
+# define global variables
+base_url='https://www.strava.com/api/v3/segments/'
 
 class stravaSegment(object):
 
 	def __init__(self,id):
 		self.id=id
-		base_url='https://www.strava.com/api/v3/segments/'
 		self.name=requests.get(base_url+str(id)+'?access_token='+secrets.apiToken).json()['name']
 		self.effortCount=requests.get(base_url+str(id)+'?access_token='+secrets.apiToken).json()['effort_count']
 		self.athleteCount=requests.get(base_url+str(id)+'?access_token='+secrets.apiToken).json()['athlete_count']
@@ -32,7 +33,7 @@ class stravaSegment(object):
 			# add efforts to python list
 			efforts.append(jsonifiedData)
 		# make empty list to put times in
-		times = []
+		best_times = []
 		# an initial, very slow fastest time
 		fastestTime=100000
 		# go through a pages
@@ -40,14 +41,14 @@ class stravaSegment(object):
 			# go through the number of efforts per page
 			for b in range(len(efforts[a])):
 				# if time is fastest yet, then add to our list 
-				# update the fact that new fastest time has change
+				# update the fact that new fastest time has changed
 				if efforts[a][b]['elapsed_time']<fastestTime:
 					oneRun = []
 					oneRun.append(efforts[a][b]['elapsed_time'])
 					oneRun.append(efforts[a][b]['start_date'])
 					fastestTime=efforts[a][b]['elapsed_time']
-					times.append(oneRun)
-		return times
+					best_times.append(oneRun)
+		return best_times
 
 # output
 whirl = stravaSegment(673849)
