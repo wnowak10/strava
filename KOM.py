@@ -6,6 +6,8 @@ import numpy as np
 base_url='https://www.strava.com/api/v3/segments/'
 
 class stravaSegment(object):
+	# this class gets information on a strava segment. 
+	# see: https://support.strava.com/hc/en-us/articles/216918167-What-are-Segments-
 
 	def __init__(self,id):
 		self.id=id # segment ID
@@ -15,6 +17,10 @@ class stravaSegment(object):
 
 
 	def getKOMs(self,start_year,start_month,start_day,end_year,end_month,end_day):
+		# this function returns all KOMs (king of the moutains) (fastest times)
+		# in the history (given by user defined date range) of a segment
+
+
 		perPage='100' # set the number of efforts printed 'per page'
 		
 		# set start and end dates for efforts investigated. user must provide start
