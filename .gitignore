@@ -1,0 +1,4 @@
+# The files in this list will be ignored by git and will not be synced when you push to github
+
+# secrets
+secrets.py
